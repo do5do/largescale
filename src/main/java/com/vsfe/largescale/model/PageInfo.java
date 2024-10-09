@@ -30,9 +30,10 @@ public record PageInfo<T>(
 		}
 
 		var lastValue = data.get(expectedSize - 1);
-		var pageToken = C4PageTokenUtil.encodePageToken(
-			Pair.of(firstPageTokenFunction.apply(lastValue), secondPageTokenFunction.apply(lastValue))
-		);
+		var pageToken = C4PageTokenUtil.encodePageToken(Pair.of(
+			firstPageTokenFunction.apply(lastValue),
+			secondPageTokenFunction.apply(lastValue)
+		));
 
 		return new PageInfo<>(pageToken, data.subList(0, expectedSize), true);
 	}
