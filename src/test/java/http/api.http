@@ -1,0 +1,5 @@
+### Step 1
+GET http://localhost:8080/service/user-info?count=100
+
+### Step 2
+GET http://localhost:8080/service/get-transactions?accountNumber=3333-20-5457519&option=SENDER&count=10

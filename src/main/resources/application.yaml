@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USER_ID}
+    password: ${DB_PASSWORD}
+    # socketTimeout: 데이터베이스의 쿼리 시간 제한 -> 기본적으로 보수적으로 잡는 것을 권장한다.
+    # socketTimeout 을 설정하지 않으면 네트워크 이슈 등으로 쿼리가 전달되지 않을 수 있다. 기본적인 timeout 이 없기 때문에 서버가 무한 대기를 할 수 있다.
+    # 또한 이점으로 쿼리를 작성했을 때 socketTimeout 을 초과한다면 쿼리에 문제가 있다고 판단하고 개선할 수 있다.
+    # 참고) 기본적인 쿼리에 대한 timeout 을 따로 만들고, heavy 쿼리에 대한 timeout 을 따로 둘 수 있다.
+    url: jdbc:mysql://${DB_URL}/large-scale?socketTimeout=2000
+    hikari:
+      connection-timeout: 3000 # 연결을 생성하는데 제한 시간 -> 데이터베이스 네트워크에 접속하는데 걸리는 시간
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
