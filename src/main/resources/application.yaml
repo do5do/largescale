@@ -11,10 +11,10 @@ spring:
     hikari:
       connection-timeout: 3000 # 연결을 생성하는데 제한 시간 -> 데이터베이스 네트워크에 접속하는데 걸리는 시간
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: validate
     properties:
       hibernate:
-        format_sql: true
-        use_sql_comments: true
+        format_sql: false
+        use_sql_comments: false

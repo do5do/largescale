@@ -63,16 +63,27 @@ public class LargeScaleController {
 
 	/**
 	 * Step 3. Full Scan 을 수행해야 하는 로직은 어떻게 수행해야 할까요?
+	 * <p>
+	 *     - Full Scan : 테이블 데이터 모두 읽기
+	 *     계좌번호에는 오류 검증 번호가 있다. 계좌번호를 모두 조회(account 데이터는 2천만개; 1.8GB)해서 잘못된 데이터인지 검증한다.
+	 *     (pageSize가 음수이면 모든 페이지를 조회하도록 한다.)
+	 * </p>
 	 */
-	public void validateAccountNumber() {
-
+	@GetMapping("/validate-account")
+	public void validateAccountNumber(@RequestParam int pageSize) {
+		largeScaleService.validateAccountNumber(pageSize);
 	}
 
 	/**
-	 * Step 4. 통계성 집계를 병렬로 수행해 봅시다.
+	 * Step 4. 병렬 처리를 사용한 마이그레이션 작업 수행
+	 * <p>
+	 *     Account, Transaction 테이블의 데이터를 파티셔닝한다.
+	 *     파티셔닝한 테이블을 구별하는 key는 User 테이블의 group_id이다.
+	 * </p>
 	 */
-	public void aggregateTransactions() {
-
+	@GetMapping("/migrate-data")
+	public void aggregateTransactions(@RequestParam int pageSize) {
+		largeScaleService.migrationData(pageSize);
 	}
 
 	/**
